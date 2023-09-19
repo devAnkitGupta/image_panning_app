@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_panning_app/app/theme/app_color.dart';
-import 'package:image_panning_app/app/theme/app_text_theme.dart';
+import 'package:image_panning_app/view/app/theme/app_color.dart';
+import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
 
 abstract class AppTheme {
   AppTheme._();

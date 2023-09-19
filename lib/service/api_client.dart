@@ -33,7 +33,7 @@ class ApiClient {
             printRequestData: true,
             printResponseData: true,
             printRequestHeaders: true,
-            printResponseHeaders: true,
+            printResponseHeaders: false,
             printResponseMessage: true,
             errorPen: AnsiPen()..red(),
             requestPen: AnsiPen()..blue(),

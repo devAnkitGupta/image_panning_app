@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_panning_app/app/route/route_constants.dart';
-import 'package:image_panning_app/app/theme/app_color.dart';
+import 'package:image_panning_app/view/app/route/route_constants.dart';
+import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/widgets/custom_icon_button.dart';
@@ -83,7 +83,7 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
     }
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile!.path,
-      compressFormat: ImageCompressFormat.jpg,
+      compressFormat: ImageCompressFormat.png,
       compressQuality: 100,
       uiSettings: [
         AndroidUiSettings(

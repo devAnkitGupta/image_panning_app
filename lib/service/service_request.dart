@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_panning_app/service/api_client.dart';
+import 'package:mime_type/mime_type.dart';
 
 class ServiceRequest {
   final ApiClient _client;
@@ -40,10 +42,23 @@ class ServiceRequest {
     ProgressCallback? onReceiveProgress,
   }) async {
     String fileName = file.path.split('/').last;
+    String mimeType = mime(fileName) ?? '';
+    String mimee = mimeType.split('/')[0];
+    String type = mimeType.split('/')[1];
+
+    if (mimeType == '') {
+      mimeType = 'image/png';
+    }
+
     FormData formData = FormData.fromMap({
-      "file": await MultipartFile.fromFile(file.path, filename: fileName),
+      "profileBannerImageURL": await MultipartFile.fromFile(file.path,
+          contentType: MediaType(mimee, type)),
     });
-   final response = await _client.dio.post(url, data: formData);
+
+    final response = await _client.dio.post(
+      url,
+      data: formData,
+    );
     return response;
   }
 }

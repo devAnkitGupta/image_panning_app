@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
-import 'package:image_panning_app/view/app/theme/app_color.dart';
-import 'package:image_panning_app/view/widgets/loading_indicator.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -11,15 +9,16 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+
   @override
   void initState() {
     super.initState();
-    moveToChangeDesign();
+    moveToParentScreen();
   }
 
-  Future<void> moveToChangeDesign() async {
+  Future<void> moveToParentScreen() async {
     Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
       () {
         Navigator.of(context).pushReplacementNamed(RouteConstants.changeDesign);
       },
@@ -30,10 +29,8 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: LoadingIndicator(),
+        child: CircularProgressIndicator.adaptive(),
       ),
     );
   }
 }
-
-
