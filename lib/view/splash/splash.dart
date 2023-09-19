@@ -9,15 +9,15 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   @override
   void initState() {
     super.initState();
+    moveToChangeDesign();
   }
 
-  Future<void> moveToParentScreen() async {
+  Future<void> moveToChangeDesign() async {
     Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       () {
         Navigator.of(context).pushReplacementNamed(RouteConstants.changeDesign);
       },

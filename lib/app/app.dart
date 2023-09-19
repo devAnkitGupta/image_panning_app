@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/app/route/routes.dart';
-import 'package:image_panning_app/view/splash/splash_screen.dart';
+import 'package:image_panning_app/view/splash/splash.dart';
 import 'package:image_panning_app/app/theme/app_theme.dart';
 
 class App extends StatelessWidget {
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.defaultTheme(),
       routes: Routes.getAll(),
-      // onGenerateRoute: Routes.generateRoute,
+      onGenerateRoute: Routes.generateRoute,
       home: const Splash(),
     );
   }

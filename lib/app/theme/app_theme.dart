@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/app/theme/app_color.dart';
 import 'package:image_panning_app/app/theme/app_text_theme.dart';
-
 
 abstract class AppTheme {
   AppTheme._();
 
   static ThemeData defaultTheme() => ThemeData(
-         primaryColor: AppColor.white,
-         scaffoldBackgroundColor: AppColor.white,
-        // unselectedWidgetColor: AppColor.white,
-        // colorScheme: const ColorScheme.light(
-        //   primary: AppColor.primaryColor,
-        //   secondary: AppColor.secondaryColor,
-        // ),
-        appBarTheme:  AppBarTheme(
+        primaryColor: AppColor.white,
+        scaffoldBackgroundColor: AppColor.white,
+        appBarTheme: AppBarTheme(
           color: AppColor.white,
           elevation: 0.0,
           iconTheme: const IconThemeData(
@@ -26,22 +21,43 @@ abstract class AppTheme {
             color: AppColor.black,
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
-          titleTextStyle: AppTextTheme.titleMedium
+          titleTextStyle: AppTextTheme.titleMedium,
         ),
-        // fontFamily: AppTextTheme.defaultFontFamily,
-        // primaryTextTheme: AppTextTheme.defaultTextTheme(),
-        // textTheme: AppTextTheme.defaultTextTheme(),
-        // buttonTheme: const ButtonThemeData(
-        //   buttonColor: AppColor.primaryColor,
-        //   disabledColor: AppColor.grey,
-        // ),
-        // snackBarTheme: SnackBarThemeData(
-        //   backgroundColor: AppColor.white,
-        //   actionTextColor: AppColor.black,
-        //   disabledActionTextColor: AppColor.grey,
-        //   contentTextStyle: AppTextTheme.defaultTextTheme().titleMedium,
-        //   elevation: LayoutConstants.noElevation,
-        //   behavior: SnackBarBehavior.fixed,
-        // ),
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: AppColor.white,
+        ),
+        buttonTheme: const ButtonThemeData(
+          shape: StadiumBorder(),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              maximumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
+              minimumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
+              shape: const MaterialStatePropertyAll(
+                StadiumBorder(),
+              ),
+              backgroundColor: const MaterialStatePropertyAll(AppColor.red),
+              elevation: const MaterialStatePropertyAll(0.0),
+              textStyle:
+                  MaterialStatePropertyAll(AppTextTheme.bodyLarge.copyWith(
+                color: AppColor.white,
+              ))),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            maximumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
+            minimumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
+            shape: const MaterialStatePropertyAll(
+              StadiumBorder(),
+            ),
+            backgroundColor: const MaterialStatePropertyAll(AppColor.white),
+            side: const MaterialStatePropertyAll(
+              BorderSide(
+                width: 1,
+                color: AppColor.red,
+              ),
+            ),
+          ),
+        ),
       );
 }
