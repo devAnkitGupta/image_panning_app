@@ -3,7 +3,6 @@ import 'package:image_panning_app/app/route/route_constants.dart';
 import 'package:image_panning_app/view/upload_picture_feature/screens/change_design_screen.dart';
 import 'package:image_panning_app/view/splash/splash.dart';
 import 'package:image_panning_app/view/upload_picture_feature/screens/upload_picture_screen.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Routes {
   static Map<String, WidgetBuilder> getAll() => {

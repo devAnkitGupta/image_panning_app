@@ -39,6 +39,10 @@ dependencies:
   get_it: ^7.6.4
   image_picker: ^1.0.4
   dotted_border: ^2.0.0+3
+  dio: ^5.3.2
+  talker_dio_logger: ^2.3.0
+  ## for coloring logs 
+  ansicolor: ^2.0.1
 
 dev_dependencies:
   flutter_test:
