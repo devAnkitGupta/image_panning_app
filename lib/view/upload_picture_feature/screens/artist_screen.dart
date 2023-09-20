@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/model/models/upload_picture_response.dart';
+import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
@@ -26,7 +27,12 @@ class ArtistScreen extends StatelessWidget {
             _ArtistCard(uploadPictureData: uploadPictureData),
             SizedBox(height: 24.h),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteConstants.customImageCardScreen,
+                );
+              },
               child: Text(
                 'Edit Card',
                 style: AppTextTheme.bodyLarge.copyWith(
@@ -66,7 +72,10 @@ class _ArtistCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          const UserProfileInfo(),
+          Positioned(
+            top: 40.h,
+            child: const UserProfileInfo(),
+          ),
           Positioned(
             bottom: 50.h,
             child: const Row(

@@ -10,4 +10,5 @@ abstract class AppColor{
   static const borderGrey = Color(0xffD9D8D8);
   static const red = Color(0xffE72D38);
   static const grey10 = Color(0xFFF5F5F5);
+  static const cardBlue = Color(0xffCDDAEA);
 }

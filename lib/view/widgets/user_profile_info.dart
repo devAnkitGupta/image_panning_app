@@ -3,57 +3,67 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
+import 'package:image_panning_app/view/widgets/customize_button.dart';
 
 class UserProfileInfo extends StatelessWidget {
   const UserProfileInfo({
     super.key,
     this.enableEditing = false,
+    this.onEditingTapped,
   });
   final bool enableEditing;
+  final VoidCallback? onEditingTapped;
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 40.h,
-      child: Column(
-        children: [
-          UserCircularAvatar(
-            enableEditing: enableEditing,
-          ),
-          Text(
-            'Nathaniel',
-            style: AppTextTheme.headlineSmall.copyWith(
-              color: AppColor.white,
-              fontWeight: FontWeight.bold,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (enableEditing)
+          Align(
+            alignment: Alignment.topRight,
+            child: CustomizeButton(
+              callback: onEditingTapped ?? () {},
             ),
           ),
+        UserCircularAvatar(
+          enableEditing: enableEditing,
+        ),
+        SizedBox(height: 8.h),
+        Text(
+          'Nathaniel',
+          style: AppTextTheme.headlineSmall.copyWith(
+            color: AppColor.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 4.h),
+        Text(
+          'Stanton',
+          style: AppTextTheme.titleLarge.copyWith(
+            color: AppColor.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        SizedBox(height: 24.h),
+        if (!enableEditing)
           Text(
-            'Stanton',
+            'Realtor | VP design',
             style: AppTextTheme.titleLarge.copyWith(
               color: AppColor.white,
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 24.h),
-          if (!enableEditing)
-            Text(
-              'Realtor | VP design',
-              style: AppTextTheme.titleLarge.copyWith(
-                color: AppColor.white,
-                fontWeight: FontWeight.w600,
-              ),
+        SizedBox(height: 12.h),
+        if (!enableEditing)
+          Text(
+            'Bangalore India',
+            style: AppTextTheme.titleLarge.copyWith(
+              color: AppColor.white,
+              fontWeight: FontWeight.w500,
             ),
-          SizedBox(height: 12.h),
-          if (!enableEditing)
-            Text(
-              'Bangalore India',
-              style: AppTextTheme.titleLarge.copyWith(
-                color: AppColor.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
