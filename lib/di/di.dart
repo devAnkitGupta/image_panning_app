@@ -20,7 +20,6 @@ class Di {
     getIt
         .registerFactory<UploadPictureRepository>(() => UploadPictureRepository(
               serviceRequest: getIt<ServiceRequest>(),
-              loadingNotifier: getIt<LoadingNotifier>(),
             ));
 
     /// Register ViewMode
