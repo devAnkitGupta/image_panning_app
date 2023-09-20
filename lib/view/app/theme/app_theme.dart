@@ -26,22 +26,21 @@ abstract class AppTheme {
         bottomSheetTheme: const BottomSheetThemeData(
           backgroundColor: AppColor.white,
         ),
-        buttonTheme: const ButtonThemeData(
-          shape: StadiumBorder(),
-        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              maximumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
-              minimumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
-              shape: const MaterialStatePropertyAll(
-                StadiumBorder(),
-              ),
-              backgroundColor: const MaterialStatePropertyAll(AppColor.red),
-              elevation: const MaterialStatePropertyAll(0.0),
-              textStyle:
-                  MaterialStatePropertyAll(AppTextTheme.bodyLarge.copyWith(
+            maximumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
+            minimumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
+            shape: const MaterialStatePropertyAll(
+              StadiumBorder(),
+            ),
+            backgroundColor: const MaterialStatePropertyAll(AppColor.red),
+            elevation: const MaterialStatePropertyAll(0.0),
+            textStyle: MaterialStatePropertyAll(
+              AppTextTheme.bodyLarge.copyWith(
                 color: AppColor.white,
-              ))),
+              ),
+            ),
+          ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
@@ -49,6 +48,11 @@ abstract class AppTheme {
             minimumSize: MaterialStatePropertyAll(Size(335.w, 48.h)),
             shape: const MaterialStatePropertyAll(
               StadiumBorder(),
+            ),
+            textStyle: MaterialStatePropertyAll(
+              AppTextTheme.bodyLarge.copyWith(
+                color: AppColor.red,
+              ),
             ),
             backgroundColor: const MaterialStatePropertyAll(AppColor.white),
             side: const MaterialStatePropertyAll(

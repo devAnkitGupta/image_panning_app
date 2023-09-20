@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/di/di.dart';
+import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
@@ -43,9 +44,19 @@ class UploadPictureScreen extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               final file = File(pickedFile);
-              Di.getIt<UploadPictureViewModel>().uploadPicture(file);
+              final uploadPictureData =
+                  await Di.getIt<UploadPictureViewModel>().uploadPicture(file);
+              if (uploadPictureData != null) {
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RouteConstants.artistScreen,
+                    arguments: uploadPictureData,
+                  );
+                }
+              }
             },
             child: const Text('Save & Continue'),
           ),
