@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/di/di.dart';
 import 'package:image_panning_app/view/app/route/routes.dart';
+import 'package:image_panning_app/view/upload_picture_feature/ui_view_model/image_panning_view_model.dart';
 import 'package:image_panning_app/view/widgets/loading/loading_notifier.dart';
 import 'package:image_panning_app/view/widgets/loading/loading_screen.dart';
 import 'package:image_panning_app/view/splash/splash.dart';
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: Di.getIt<LoadingNotifier>()),
         ChangeNotifierProvider.value(value: Di.getIt<UploadPictureViewModel>()),
+        ChangeNotifierProvider.value(value: Di.getIt<ImagePanningViewModel>())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

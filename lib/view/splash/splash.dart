@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
-import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/widgets/loading_indicator.dart';
 
 class Splash extends StatefulWidget {

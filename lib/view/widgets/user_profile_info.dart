@@ -88,7 +88,7 @@ class UserCircularAvatar extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColor.white,
             ),
-            padding: EdgeInsets.all(4.w),
+            padding: EdgeInsets.all(3.w),
             child: Container(
               height: 100.h,
               width: 100.h,

@@ -12,7 +12,7 @@ abstract class AppTheme {
         scaffoldBackgroundColor: AppColor.white,
         appBarTheme: AppBarTheme(
           color: AppColor.white,
-          elevation: 0.0,
+          elevation: 2.0,
           iconTheme: const IconThemeData(
             color: AppColor.black,
             size: 24.0,

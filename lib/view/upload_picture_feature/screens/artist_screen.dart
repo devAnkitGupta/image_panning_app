@@ -49,6 +49,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                           Navigator.pushNamed(
                             context,
                             RouteConstants.customImageCardScreen,
+                            arguments: snapshot.profileUrl,
                           );
                         },
                         child: Text(
@@ -131,8 +132,11 @@ class _ArtistCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(2.h),
                   decoration: BoxDecoration(
-                      color: AppColor.black54,
-                      borderRadius: BorderRadius.all(Radius.circular(4.r))),
+                    color: AppColor.black54,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4.r),
+                    ),
+                  ),
                   child: Text(
                     'Profile',
                     style: AppTextTheme.chipLabel,
@@ -161,8 +165,8 @@ class _ProfileInfoIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size?.h ?? 35.h,
-      width: size?.h ?? 35.h,
+      height: size?.h ?? 30.h,
+      width: size?.h ?? 30.h,
       margin: EdgeInsets.symmetric(horizontal: 4.w),
       decoration: BoxDecoration(
         color: AppColor.black54,
@@ -171,7 +175,7 @@ class _ProfileInfoIcon extends StatelessWidget {
       child: Icon(
         iconData,
         color: AppColor.white,
-        size: iconSize?.h ?? 26.h,
+        size: iconSize?.h ?? 22.h,
       ),
     );
   }

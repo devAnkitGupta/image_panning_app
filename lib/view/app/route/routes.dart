@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_panning_app/model/models/upload_picture_response.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
@@ -31,11 +32,12 @@ class Routes {
         };
       case RouteConstants.customImageCardScreen:
         builder = (context) {
-          return const CustomImageCardScreen();
+          final args = settings.arguments! as String;
+          return CustomImageCardScreen(url: args);
         };
       case RouteConstants.customizeYourCardScreen:
         builder = (context) {
-          return const CustomizeYourCardScreen();
+          return CustomizeYourCardScreen();
         };
     }
 
