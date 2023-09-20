@@ -6,8 +6,10 @@ import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
 import 'package:image_panning_app/view/widgets/user_profile_info.dart';
+import 'package:image_panning_app/view_model/upload_picture_view_model.dart';
+import 'package:provider/provider.dart';
 
-class ArtistScreen extends StatelessWidget {
+class ArtistScreen extends StatefulWidget {
   const ArtistScreen({
     super.key,
     required this.uploadPictureData,
@@ -16,33 +18,51 @@ class ArtistScreen extends StatelessWidget {
   final UploadPictureResponseData uploadPictureData;
 
   @override
+  State<ArtistScreen> createState() => _ArtistScreenState();
+}
+
+class _ArtistScreenState extends State<ArtistScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<UploadPictureViewModel>(context, listen: false)
+        .getSelectedCardDesignDetails('6300ba8b5c4ce60057ef9b0c');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: 'Artist',
       backgroundColor: AppColor.grey10,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 24.h),
-            _ArtistCard(uploadPictureData: uploadPictureData),
-            SizedBox(height: 24.h),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteConstants.customImageCardScreen,
+      body: Consumer<UploadPictureViewModel>(
+        builder: (context, snapshot, _) {
+          return snapshot.profileUrl == null
+              ? const SizedBox()
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 24.h),
+                      _ArtistCard(url: snapshot.profileUrl!),
+                      SizedBox(height: 24.h),
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteConstants.customImageCardScreen,
+                          );
+                        },
+                        child: Text(
+                          'Edit Card',
+                          style: AppTextTheme.bodyLarge.copyWith(
+                            color: AppColor.red,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+                    ],
+                  ),
                 );
-              },
-              child: Text(
-                'Edit Card',
-                style: AppTextTheme.bodyLarge.copyWith(
-                  color: AppColor.red,
-                ),
-              ),
-            ),
-            SizedBox(height: 24.h),
-          ],
-        ),
+        },
       ),
     );
   }
@@ -50,10 +70,10 @@ class ArtistScreen extends StatelessWidget {
 
 class _ArtistCard extends StatelessWidget {
   const _ArtistCard({
-    required this.uploadPictureData,
+    required this.url,
   });
 
-  final UploadPictureResponseData uploadPictureData;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +86,7 @@ class _ArtistCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              uploadPictureData.profileBannerImageURL,
+              url,
               width: 335.w,
               height: 638.h,
               fit: BoxFit.cover,

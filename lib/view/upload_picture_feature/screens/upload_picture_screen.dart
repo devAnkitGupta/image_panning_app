@@ -8,6 +8,7 @@ import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
 import 'package:image_panning_app/view_model/upload_picture_view_model.dart';
+import 'package:provider/provider.dart';
 
 class UploadPictureScreen extends StatelessWidget {
   const UploadPictureScreen({
@@ -50,6 +51,8 @@ class UploadPictureScreen extends StatelessWidget {
                   await Di.getIt<UploadPictureViewModel>().uploadPicture(file);
               if (uploadPictureData != null) {
                 if (context.mounted) {
+                  Provider.of<UploadPictureViewModel>(context, listen: false)
+                      .resetProfileImage();
                   Navigator.pushReplacementNamed(
                     context,
                     RouteConstants.artistScreen,

@@ -11,12 +11,17 @@ class UploadPictureRepository {
   }) : _serviceRequest = serviceRequest;
 
   Future<UploadPictureResponseData> uploadPicture(File file) async {
-   final result =  await _serviceRequest.uploadImage(Urls.postProfileBannerImage, file);
-   final uploadPictureResponse = UploadPictureResponse.fromJson(result.data);
-   return uploadPictureResponse.result[0];
+    final result =
+        await _serviceRequest.uploadImage(Urls.postProfileBannerImage, file);
+    final uploadPictureResponse = UploadPictureResponse.fromJson(result.data);
+    return uploadPictureResponse.result[0];
   }
 
-  Future<void> sendSelectedCardDesignDetails() async {
-    _serviceRequest.post(Urls.selectedCardDesignDetails, data: {});
+  Future<String> getSelectedCardDesignDetails(String cardId) async {
+    final result = await _serviceRequest
+        .post(Urls.selectedCardDesignDetails, data: {"cardImageId": cardId});
+    final url = result.data['result'][0]["customImageCardDesignInfo"]
+        ["profileBannerImageURL"];
+    return url;
   }
 }

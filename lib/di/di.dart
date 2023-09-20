@@ -23,8 +23,8 @@ class Di {
             ));
 
     /// Register ViewMode
-    getIt.registerFactory<UploadPictureViewModel>(
-      () => UploadPictureViewModel(
+    getIt.registerSingleton<UploadPictureViewModel>(
+      UploadPictureViewModel(
         uploadPictureRepository: getIt<UploadPictureRepository>(),
         loadingNotifier: getIt<LoadingNotifier>(),
       ),
