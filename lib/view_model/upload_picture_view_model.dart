@@ -42,6 +42,7 @@ class UploadPictureViewModel with ChangeNotifier {
   Future<void> getSelectedCardDesignDetails(
       {String cardId = '6300ba8b5c4ce60057ef9b0c'}) async {
     try {
+      resetProfileImage();
       _loadingNotifier.startLoading();
       profileUrl = await _uploadPictureRepository.getSelectedCardDesignDetails(
         cardId,
@@ -51,6 +52,7 @@ class UploadPictureViewModel with ChangeNotifier {
     } finally {
       _loadingNotifier.stopLoading();
     }
+    debugPrint('Fetched Again');
     notifyListeners();
   }
 

@@ -26,7 +26,7 @@ class ImagePanningViewModel with ChangeNotifier {
       originalState = Image.memory(
         bytes,
         width: 335.w,
-        height: 638.h,
+        height: 700.h,
         fit: BoxFit.cover,
       );
       customizeState = Image.memory(
@@ -72,6 +72,11 @@ class ImagePanningViewModel with ChangeNotifier {
             .create();
     final file = await pathOfImage.writeAsBytes(imageBytes);
     return file;
+  }
+
+  void onImageReplaced(String imagePath) {
+    customizeState = Image.file(File(imagePath));
+    notifyListeners();
   }
 
   void resetImageState() {

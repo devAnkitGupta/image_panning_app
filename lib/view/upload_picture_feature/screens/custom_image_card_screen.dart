@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
@@ -35,7 +34,7 @@ class CustomImageCardScreen extends StatelessWidget {
                       SizedBox(height: 24.h),
                       SizedBox(
                         width: 335.w,
-                        height: 638.h,
+                        height: 700.h,
                         child: Stack(
                           alignment: Alignment.center,
                           fit: StackFit.expand,
@@ -61,10 +60,12 @@ class CustomImageCardScreen extends StatelessWidget {
                         onPressed: () async {
                           //TODO
                           if (snapshot.originalImageFile != null) {
-                            Provider.of<UploadPictureViewModel>(context,
+                            await Provider.of<UploadPictureViewModel>(context,
                                     listen: false)
                                 .uploadPicture(snapshot.originalImageFile!);
-                            Navigator.pop(context);
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                            }
                           }
                         },
                         child: const Text('Save'),

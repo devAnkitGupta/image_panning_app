@@ -5,15 +5,19 @@ class LoadingNotifier with ChangeNotifier {
 
   void startLoading() {
     if (!loading) {
-      loading = true;
-      notifyListeners();
+      Future.microtask(() {
+        loading = true;
+        notifyListeners();
+      });
     }
   }
 
   void stopLoading() {
     if (loading) {
-      loading = false;
-      notifyListeners();
+      Future.microtask(() {
+        loading = false;
+        notifyListeners();
+      });
     }
   }
 }

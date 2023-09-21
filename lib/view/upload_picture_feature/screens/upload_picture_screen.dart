@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_panning_app/di/di.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
@@ -48,11 +47,12 @@ class UploadPictureScreen extends StatelessWidget {
             onPressed: () async {
               final file = File(pickedFile);
               final uploadPictureData =
-                  await Di.getIt<UploadPictureViewModel>().uploadPicture(file);
+                  await Provider.of<UploadPictureViewModel>(
+                context,
+                listen: false,
+              ).uploadPicture(file);
               if (uploadPictureData != null) {
                 if (context.mounted) {
-                  Provider.of<UploadPictureViewModel>(context, listen: false)
-                      .resetProfileImage();
                   Navigator.pushReplacementNamed(
                     context,
                     RouteConstants.artistScreen,

@@ -40,23 +40,22 @@ class _ArtistScreenState extends State<ArtistScreen> {
               ? const SizedBox()
               : SingleChildScrollView(
                   child: Column(
+                    key: UniqueKey(),
                     children: [
                       SizedBox(height: 24.h),
                       _ArtistCard(url: snapshot.profileUrl!),
                       SizedBox(height: 24.h),
                       OutlinedButton(
                         onPressed: () async {
-                          await Navigator.pushNamed(
+                          Navigator.pushNamed(
                             context,
                             RouteConstants.customImageCardScreen,
                             arguments: snapshot.profileUrl,
-                          );
-                          if (mounted) {
-                            Provider.of<UploadPictureViewModel>(context,
-                                listen: false)
-                              ..resetProfileImage()
-                              ..getSelectedCardDesignDetails();
-                          }
+                          ).then((value) => Provider.of<UploadPictureViewModel>(
+                              context,
+                              listen: false)
+                            ..resetProfileImage()
+                            ..getSelectedCardDesignDetails());
                         },
                         child: Text(
                           'Edit Card',

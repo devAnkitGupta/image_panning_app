@@ -11,18 +11,19 @@ class LoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LoadingNotifier>(
       builder: (context, snapshot, child) {
-        return snapshot.loading ? child! : const SizedBox();
+        return snapshot.loading
+            ? Center(
+                child: AbsorbPointer(
+                  child: Container(
+                    color: AppColor.black.withOpacity(0.5),
+                    child: const Center(
+                      child: LoadingIndicator(),
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox();
       },
-      child: Center(
-        child: AbsorbPointer(
-          child: Container(
-            color: AppColor.black.withOpacity(0.5),
-            child: const Center(
-              child: LoadingIndicator(),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

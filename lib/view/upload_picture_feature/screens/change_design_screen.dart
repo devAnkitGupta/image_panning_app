@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
-import 'package:image_panning_app/view/app/theme/app_color.dart';
-import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/utils/utils.dart';
-import 'package:image_panning_app/view/widgets/custom_icon_button.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
 import 'package:image_panning_app/view/widgets/star_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,7 +28,7 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
         const SizedBox(height: 30),
         StarButton(
           onTap: () {
-            showPickerModel(context);
+            Utils.showPickerModel(context, openPicker);
           },
           title: 'Upload picture',
         ),
@@ -41,69 +36,22 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
     );
   }
 
-  Future<void> showPickerModel(BuildContext context) {
-    return showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 142.h,
-          child: Center(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomIconButton(
-                  iconLocation: "${AppStrings.assestsLocation}camera.png",
-                  label: 'Camera',
-                  onTap: () async {
-                    await openPicker(ImageSource.camera);
-                  },
-                ),
-                SizedBox(width: 30.w),
-                CustomIconButton(
-                  iconLocation: "${AppStrings.assestsLocation}gallery.png",
-                  label: 'Gallery',
-                  onTap: () async {
-                    await openPicker(ImageSource.gallery);
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   Future<void> openPicker(ImageSource source) async {
     final imageFile = await Utils.getImage(source);
-    //TODO: Handle Null SnackBar
-    if (context.mounted) {
+    if (mounted) {
       Navigator.pop(context);
     }
-    final croppedFile = await ImageCropper().cropImage(
-      sourcePath: imageFile!.path,
-      compressFormat: ImageCompressFormat.png,
-      compressQuality: 100,
-      uiSettings: [
-        AndroidUiSettings(
-          toolbarTitle: AppStrings.editPhoto,
-          toolbarColor: AppColor.white,
-          toolbarWidgetColor: AppColor.black,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false,
-        ),
-        IOSUiSettings(
-          title: AppStrings.editPhoto,
-        ),
-      ],
-    );
+    if (imageFile == null) {
+      //TODO: Handle Null SnackBar
+      return;
+    }
+    final croppedFile = await Utils.cropImage(imageFile.path);
     if (croppedFile == null) return;
     if (context.mounted) {
       Navigator.pushNamed(
         context,
         RouteConstants.uploadPictureScreen,
-        arguments: croppedFile.path,
+        arguments: croppedFile,
       );
     }
   }

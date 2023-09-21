@@ -31,7 +31,7 @@ class ApiClient {
         TalkerDioLogger(
           settings: TalkerDioLoggerSettings(
             printRequestData: true,
-            printResponseData: true,
+             printResponseData: false,
             printRequestHeaders: true,
             printResponseHeaders: false,
             printResponseMessage: true,
