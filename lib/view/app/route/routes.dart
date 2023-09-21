@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_panning_app/model/models/upload_picture_response.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
@@ -37,7 +36,7 @@ class Routes {
         };
       case RouteConstants.customizeYourCardScreen:
         builder = (context) {
-          return CustomizeYourCardScreen();
+          return const CustomizeYourCardScreen();
         };
     }
 

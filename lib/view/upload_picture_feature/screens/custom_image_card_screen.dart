@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,8 +61,10 @@ class CustomImageCardScreen extends StatelessWidget {
                         onPressed: () async {
                           //TODO
                           if (snapshot.originalImageFile != null) {
-                            Provider.of<UploadPictureViewModel>(context)
-                                .uploadPicture(File(''));
+                            Provider.of<UploadPictureViewModel>(context,
+                                    listen: false)
+                                .uploadPicture(snapshot.originalImageFile!);
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text('Save'),

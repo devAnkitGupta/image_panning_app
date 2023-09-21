@@ -26,7 +26,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     Provider.of<UploadPictureViewModel>(context, listen: false)
-        .getSelectedCardDesignDetails('6300ba8b5c4ce60057ef9b0c');
+        .getSelectedCardDesignDetails();
   }
 
   @override
@@ -45,12 +45,18 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       _ArtistCard(url: snapshot.profileUrl!),
                       SizedBox(height: 24.h),
                       OutlinedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
+                        onPressed: () async {
+                          await Navigator.pushNamed(
                             context,
                             RouteConstants.customImageCardScreen,
                             arguments: snapshot.profileUrl,
                           );
+                          if (mounted) {
+                            Provider.of<UploadPictureViewModel>(context,
+                                listen: false)
+                              ..resetProfileImage()
+                              ..getSelectedCardDesignDetails();
+                          }
                         },
                         child: Text(
                           'Edit Card',

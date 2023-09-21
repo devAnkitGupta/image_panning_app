@@ -25,6 +25,7 @@ class UploadPictureScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
+            margin: EdgeInsets.symmetric(vertical: 12.h),
             width: 327.w,
             height: 504.h,
             decoration: BoxDecoration(
@@ -38,7 +39,6 @@ class UploadPictureScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 12.h),
           Text(
             'Picture ready to be saved',
             style: AppTextTheme.titleMedium,

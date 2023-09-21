@@ -4,12 +4,16 @@ class LoadingNotifier with ChangeNotifier {
   bool loading = false;
 
   void startLoading() {
-    loading = true;
-    notifyListeners();
+    if (!loading) {
+      loading = true;
+      notifyListeners();
+    }
   }
 
   void stopLoading() {
-    loading = false;
-    notifyListeners();
+    if (loading) {
+      loading = false;
+      notifyListeners();
+    }
   }
 }

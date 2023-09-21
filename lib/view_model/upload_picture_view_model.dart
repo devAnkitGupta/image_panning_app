@@ -39,7 +39,8 @@ class UploadPictureViewModel with ChangeNotifier {
   /// IF Success function will return [String] as Url for
   /// user Profile Image.
   /// Else function will return null
-  Future<void> getSelectedCardDesignDetails(String cardId) async {
+  Future<void> getSelectedCardDesignDetails(
+      {String cardId = '6300ba8b5c4ce60057ef9b0c'}) async {
     try {
       _loadingNotifier.startLoading();
       profileUrl = await _uploadPictureRepository.getSelectedCardDesignDetails(

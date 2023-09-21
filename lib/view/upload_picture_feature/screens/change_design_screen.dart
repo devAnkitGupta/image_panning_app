@@ -30,7 +30,7 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 10),
+        const SizedBox(height: 30),
         StarButton(
           onTap: () {
             showPickerModel(context);
