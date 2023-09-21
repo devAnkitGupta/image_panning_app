@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cropperx/cropperx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,8 +14,9 @@ class ImagePanningViewModel with ChangeNotifier {
   final LoadingNotifier _loadingNotifier;
 
   Image? originalState;
-  Image? customizeState;
   File? originalImageFile;
+  Uint8List? originalbytes;
+  bool isPannedRecently = false;
 
   ImagePanningViewModel({required LoadingNotifier loadingNotifier})
       : _loadingNotifier = loadingNotifier;
@@ -24,17 +26,12 @@ class ImagePanningViewModel with ChangeNotifier {
       _loadingNotifier.startLoading();
       final ByteData imageData =
           await NetworkAssetBundle(Uri.parse(url)).load("");
-      final Uint8List bytes = imageData.buffer.asUint8List();
+      originalbytes = imageData.buffer.asUint8List();
+
       originalState = Image.memory(
-        bytes,
+        originalbytes!,
         width: 335.w,
         height: 700.h,
-        fit: BoxFit.cover,
-      );
-      customizeState = Image.memory(
-        bytes,
-        width: 335.w,
-        height: 600.h,
         fit: BoxFit.cover,
       );
     } catch (e) {
@@ -45,7 +42,7 @@ class ImagePanningViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setNewCroppedImage(Uint8List bytes) async {
+  Future<void> setNewCroppedImage(Uint8List bytes) async {
     try {
       originalState = Image.memory(
         bytes,
@@ -53,17 +50,11 @@ class ImagePanningViewModel with ChangeNotifier {
         height: 638.h,
         fit: BoxFit.cover,
       );
-      customizeState = Image.memory(
-        bytes,
-        width: 335.w,
-        height: 600.h,
-        fit: BoxFit.cover,
-      );
+      notifyListeners();
       originalImageFile = await convertImageToFile(bytes);
     } catch (e) {
       Utils.showErrorToast(message: AppStrings.failedToCropImage);
     }
-    notifyListeners();
   }
 
   Future<File> convertImageToFile(Uint8List imageBytes) async {
@@ -76,13 +67,36 @@ class ImagePanningViewModel with ChangeNotifier {
   }
 
   void onImageReplaced(String imagePath) {
-    customizeState = Image.file(File(imagePath));
+    isPannedRecently = true;
     notifyListeners();
+  }
+
+  void setPannedTrue() {
+    isPannedRecently = true;
   }
 
   void resetImageState() {
     originalState = null;
-    customizeState = null;
     originalImageFile = null;
+  }
+
+  void onSave(GlobalKey cropperKey) async {
+    try {
+      if (isPannedRecently) {
+        final imageBytes = await Cropper.crop(
+          cropperKey: cropperKey, // Reference it through the key
+        );
+        if (imageBytes != null) {
+          await setNewCroppedImage(
+            imageBytes,
+          );
+          isPannedRecently = false;
+        } else {
+          Utils.showErrorToast(message: AppStrings.failedToCropImage);
+        }
+      }
+    } catch (e) {
+      Utils.showErrorToast(message: 'Failed To Save');
+    }
   }
 }

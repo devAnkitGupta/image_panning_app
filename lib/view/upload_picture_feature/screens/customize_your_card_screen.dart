@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cropperx/cropperx.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,18 @@ class CustomizeYourCardScreen extends StatefulWidget {
 
 class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
   final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
+  late Image memoryImage;
+  late ImagePanningViewModel imagePanningViewModel;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    imagePanningViewModel =
+        Provider.of<ImagePanningViewModel>(context, listen: false);
+    final bytes = imagePanningViewModel.originalbytes;
+    memoryImage =
+        Image.memory(bytes!, width: 335.w, height: 600.h, fit: BoxFit.cover);
+  }
 
   Future<void> openPicker(ImageSource source) async {
     final imageFile = await Utils.getImage(source);
@@ -29,140 +43,128 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
       return;
     }
     if (mounted) {
+      memoryImage = Image.file(File(imageFile.path),
+          width: 335.w, height: 600.h, fit: BoxFit.cover);
       Navigator.pop(context);
-      Provider.of<ImagePanningViewModel>(context, listen: false)
-          .onImageReplaced(imageFile.path);
+      imagePanningViewModel.onImageReplaced(imageFile.path);
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Consumer<ImagePanningViewModel>(
-        builder: (context, snapshot, _) {
-          return Stack(
+      child: Stack(
+        children: [
+          Column(
             children: [
-              Column(
-                children: [
-                  SizedBox(height: 30.h),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    height: 56,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Customize Your Card',
-                          style: AppTextTheme.bodyMedium,
-                        ),
-                        GestureDetector(
-                          child: Image.asset(
-                            '${AppStrings.assestsLocation}cross.png',
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
+              SizedBox(height: 30.h),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                height: 56,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Customize Your Card',
+                      style: AppTextTheme.bodyMedium,
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 16.w,
-                      left: 16.w,
-                      right: 16.w,
-                    ),
-                    child: GestureDetector(
-                      onTap: () => Utils.showPickerModel(context, openPicker),
-                      child: DottedBorder(
-                        color: AppColor.borderGrey,
-                        strokeWidth: 1,
-                        dashPattern: const [2, 2],
-                        strokeCap: StrokeCap.round,
-                        radius: Radius.circular(8.r),
-                        child: Container(
-                          height: 51.h,
-                          padding: EdgeInsets.symmetric(vertical: 8.h),
-                          decoration: BoxDecoration(
-                            color: AppColor.cardBlue,
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                  '${AppStrings.assestsLocation}photo.png'),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              const Text('Change picture here and adjust'),
-                            ],
-                          ),
-                        ),
+                    GestureDetector(
+                      child: Image.asset(
+                        '${AppStrings.assestsLocation}cross.png',
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: 335.w,
-                    height: 600.h,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      fit: StackFit.expand,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: SizedBox(
-                            width: 335.w,
-                            height: 600.h,
-                            child: Cropper(
-                              cropperKey: _cropperKey,
-                              image: snapshot.customizeState!,
-                              zoomScale: 40,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 60.h,
-                          child: const UserProfileInfo(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  width: MediaQuery.sizeOf(context).width,
-                  color: AppColor.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final imageBytes = await Cropper.crop(
-                          cropperKey:
-                              _cropperKey, // Reference it through the key
-                        );
-                        if (imageBytes != null) {
-                          if (mounted) {
-                            Provider.of<ImagePanningViewModel>(context,
-                                    listen: false)
-                                .setNewCroppedImage(
-                              imageBytes,
-                            );
-                          }
-                        }
+                      onTap: () {
+                        Navigator.pop(context);
                       },
-                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: 16.w,
+                  left: 16.w,
+                  right: 16.w,
+                ),
+                child: GestureDetector(
+                  onTap: () => Utils.showPickerModel(context, openPicker),
+                  child: DottedBorder(
+                    color: AppColor.borderGrey,
+                    strokeWidth: 1,
+                    dashPattern: const [2, 2],
+                    strokeCap: StrokeCap.round,
+                    radius: Radius.circular(8.r),
+                    child: Container(
+                      height: 51.h,
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      decoration: BoxDecoration(
+                        color: AppColor.cardBlue,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('${AppStrings.assestsLocation}photo.png'),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          const Text('Change picture here and adjust'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 335.w,
+                height: 600.h,
+                child: Stack(
+                  alignment: Alignment.center,
+                  fit: StackFit.expand,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        width: 335.w,
+                        height: 600.h,
+                        child: Cropper(
+                          cropperKey: _cropperKey,
+                          image: memoryImage,
+                          zoomScale: 40,
+                          onScaleStart: (_) {
+                            imagePanningViewModel.setPannedTrue();
+                          },
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 60.h,
+                      child: const UserProfileInfo(),
+                    ),
+                  ],
+                ),
+              ),
             ],
-          );
-        },
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              width: MediaQuery.sizeOf(context).width,
+              color: AppColor.white,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: ElevatedButton(
+                  onPressed: () {
+                    imagePanningViewModel.onSave(_cropperKey);
+                  },
+                  child: const Text('Save'),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -16,12 +16,14 @@ class ApiClient {
   factory ApiClient() => _singleton;
 
   static Dio createDio() {
-    var dio = Dio(BaseOptions(
-      baseUrl: Urls.baseUrl,
-      receiveTimeout: const Duration(seconds: 3), // 15 seconds
-      connectTimeout: const Duration(seconds: 3),
-      sendTimeout: const Duration(seconds: 3),
-    ));
+    var dio = Dio(
+      BaseOptions(
+        baseUrl: Urls.baseUrl,
+        receiveTimeout: const Duration(seconds: 3),
+        connectTimeout: const Duration(seconds: 3),
+        sendTimeout: const Duration(seconds: 3),
+      ),
+    );
 
     dio.interceptors.addAll({
       AppInterceptors(dio),
@@ -31,7 +33,7 @@ class ApiClient {
         TalkerDioLogger(
           settings: TalkerDioLoggerSettings(
             printRequestData: true,
-             printResponseData: false,
+            printResponseData: false,
             printRequestHeaders: true,
             printResponseHeaders: false,
             printResponseMessage: true,
@@ -58,7 +60,7 @@ class AppInterceptors extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     var accessToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiclhnY1Y2YXh3eVRobTNQdE04aGtSaXJTQ2ZsMiIsImlhdCI6MTY5NDAxNzk4NiwiZXhwIjoxNjk1MzEzOTg2fQ.H78KOAS569qre2u0mJY8YWAKzrtzWRRNOJs-PXoOB1E";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiclhnY1Y2YXh3eVRobTNQdE04aGtSaXJTQ2ZsMiIsImlhdCI6MTY5NTIzMTc5MSwiZXhwIjoxNjk2NTI3NzkxfQ.9W-QURjNQWAtZIqzYB3-yvJWeCayXvojHcIRmjpVD4A";
     options.headers['Authorization'] = 'Bearer $accessToken';
     return handler.next(options);
   }

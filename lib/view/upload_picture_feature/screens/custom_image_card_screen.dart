@@ -26,8 +26,7 @@ class CustomImageCardScreen extends StatelessWidget {
       backgroundColor: AppColor.grey10,
       body: Consumer<ImagePanningViewModel>(
         builder: (context, snapshot, _) {
-          return (snapshot.customizeState == null ||
-                  snapshot.originalState == null)
+          return (snapshot.originalState == null)
               ? const SizedBox()
               : SingleChildScrollView(
                   child: Column(

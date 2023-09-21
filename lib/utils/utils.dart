@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +9,23 @@ import 'package:image_panning_app/view/widgets/custom_icon_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Utils {
+  static void showClientError(Object object) {
+    String message = "";
+    if (object is DioException) {
+      message = object.toString();
+    } else {
+      message = 'Something went wrong';
+    }
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColor.red,
+      textColor: AppColor.white,
+      fontSize: 14.0.sp,
+    );
+  }
 
   static void showErrorToast({String message = 'Something went wrong'}) {
     Fluttertoast.showToast(

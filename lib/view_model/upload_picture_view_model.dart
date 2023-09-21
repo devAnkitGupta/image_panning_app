@@ -30,7 +30,7 @@ class UploadPictureViewModel with ChangeNotifier {
       uploadResponseData = await _uploadPictureRepository.uploadPicture(file);
       return uploadResponseData;
     } catch (e) {
-      Utils.showErrorToast();
+      Utils.showClientError(e);
       return uploadResponseData;
     } finally {
       _loadingNotifier.stopLoading();
@@ -43,13 +43,13 @@ class UploadPictureViewModel with ChangeNotifier {
   Future<void> getSelectedCardDesignDetails(
       {String cardId = '6300ba8b5c4ce60057ef9b0c'}) async {
     try {
-      resetProfileImage();
+      profileUrl = null;
       _loadingNotifier.startLoading();
       profileUrl = await _uploadPictureRepository.getSelectedCardDesignDetails(
         cardId,
       );
     } catch (e) {
-      Utils.showErrorToast();
+      Utils.showClientError(e);
     } finally {
       _loadingNotifier.stopLoading();
     }
