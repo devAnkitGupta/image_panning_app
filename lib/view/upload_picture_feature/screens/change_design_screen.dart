@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
@@ -42,11 +43,14 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
       Navigator.pop(context);
     }
     if (imageFile == null) {
-      //TODO: Handle Null SnackBar
+      Utils.showErrorToast(message: AppStrings.failedToLoad);
       return;
     }
     final croppedFile = await Utils.cropImage(imageFile.path);
-    if (croppedFile == null) return;
+    if (croppedFile == null) {
+      Utils.showErrorToast(message: AppStrings.failedToCropImage);
+      return;
+    }
     if (context.mounted) {
       Navigator.pushNamed(
         context,

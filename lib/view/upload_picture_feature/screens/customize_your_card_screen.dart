@@ -25,7 +25,7 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
   Future<void> openPicker(ImageSource source) async {
     final imageFile = await Utils.getImage(source);
     if (imageFile == null) {
-      //TODO: Handle Null SnackBar
+      Utils.showErrorToast(message: AppStrings.failedToLoad);
       return;
     }
     if (mounted) {

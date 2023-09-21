@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_panning_app/constants/app_strings.dart';
+import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/widgets/loading/loading_notifier.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -36,6 +38,7 @@ class ImagePanningViewModel with ChangeNotifier {
         fit: BoxFit.cover,
       );
     } catch (e) {
+      Utils.showErrorToast(message: "Editing Failed");
     } finally {
       _loadingNotifier.stopLoading();
     }
@@ -58,10 +61,8 @@ class ImagePanningViewModel with ChangeNotifier {
       );
       originalImageFile = await convertImageToFile(bytes);
     } catch (e) {
-      debugPrint(e.toString());
-      //TODO notification
+      Utils.showErrorToast(message: AppStrings.failedToCropImage);
     }
-
     notifyListeners();
   }
 

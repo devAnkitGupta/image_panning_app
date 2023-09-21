@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/upload_picture_feature/ui_view_model/image_panning_view_model.dart';
@@ -58,7 +59,6 @@ class CustomImageCardScreen extends StatelessWidget {
                       SizedBox(height: 24.h),
                       ElevatedButton(
                         onPressed: () async {
-                          //TODO
                           if (snapshot.originalImageFile != null) {
                             await Provider.of<UploadPictureViewModel>(context,
                                     listen: false)
@@ -66,6 +66,9 @@ class CustomImageCardScreen extends StatelessWidget {
                             if (context.mounted) {
                               Navigator.pop(context);
                             }
+                          } else {
+                            Utils.showErrorToast(
+                                message: "No change in Image Found");
                           }
                         },
                         child: const Text('Save'),
