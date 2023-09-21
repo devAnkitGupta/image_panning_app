@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
@@ -7,13 +8,38 @@ import 'package:image_panning_app/view/widgets/custom_icon_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Utils {
+
+  static void showErrorToast({String message = 'Something went wrong'}) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColor.red,
+      textColor: AppColor.white,
+      fontSize: 14.0.sp,
+    );
+  }
+
+  static void showSuccessToast({String message = 'Success'}) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColor.green,
+      textColor: AppColor.white,
+      fontSize: 14.0.sp,
+    );
+  }
+
   static Future<XFile?> getImage(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: source);
     return image;
   }
 
-  /// Function [cropImage] will return String as a path 
+  /// Function [cropImage] will return String as a path
   /// Or null
   static Future<String?> cropImage(String imagePath) async {
     final croppedImage = await ImageCropper().cropImage(

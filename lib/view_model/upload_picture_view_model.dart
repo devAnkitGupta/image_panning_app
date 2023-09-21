@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_panning_app/model/models/upload_picture_response.dart';
 import 'package:image_panning_app/model/repository/upload_picture_repository.dart';
+import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/widgets/loading/loading_notifier.dart';
 
 class UploadPictureViewModel with ChangeNotifier {
@@ -29,7 +30,7 @@ class UploadPictureViewModel with ChangeNotifier {
       uploadResponseData = await _uploadPictureRepository.uploadPicture(file);
       return uploadResponseData;
     } catch (e) {
-      debugPrint(e.toString());
+      Utils.showErrorToast();
       return uploadResponseData;
     } finally {
       _loadingNotifier.stopLoading();
@@ -48,11 +49,10 @@ class UploadPictureViewModel with ChangeNotifier {
         cardId,
       );
     } catch (e) {
-      debugPrint(e.toString());
+      Utils.showErrorToast();
     } finally {
       _loadingNotifier.stopLoading();
     }
-    debugPrint('Fetched Again');
     notifyListeners();
   }
 

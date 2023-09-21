@@ -11,17 +11,29 @@ class UploadPictureRepository {
   }) : _serviceRequest = serviceRequest;
 
   Future<UploadPictureResponseData> uploadPicture(File file) async {
-    final result =
-        await _serviceRequest.uploadImage(Urls.postProfileBannerImage, file);
-    final uploadPictureResponse = UploadPictureResponse.fromJson(result.data);
-    return uploadPictureResponse.result[0];
+    try {
+      final result = await _serviceRequest.uploadImage(
+          Urls.postProfileBannerImage, 'profileBannerImageURL', file);
+      final uploadPictureResponse = UploadPictureResponse.fromJson(result.data);
+      return uploadPictureResponse.result[0];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<String> getSelectedCardDesignDetails(String cardId) async {
-    final result = await _serviceRequest
-        .post(Urls.selectedCardDesignDetails, data: {"cardImageId": cardId});
-    final url = result.data['result'][0]["customImageCardDesignInfo"]
-        ["profileBannerImageURL"];
-    return url;
+    try {
+      final result = await _serviceRequest.post(
+        Urls.selectedCardDesignDetails,
+        data: {"cardImageId": cardId},
+      );
+
+      /// Since we need only one parameter for our task
+      final url = result.data['result'][0]["customImageCardDesignInfo"]
+          ["profileBannerImageURL"];
+      return url;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -34,6 +34,7 @@ class ServiceRequest {
 
   Future<Response> uploadImage(
     String url,
+    String fileKey,
     File file, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -51,8 +52,10 @@ class ServiceRequest {
     }
 
     FormData formData = FormData.fromMap({
-      "profileBannerImageURL": await MultipartFile.fromFile(file.path,
-          contentType: MediaType(mimee, type)),
+      fileKey: await MultipartFile.fromFile(
+        file.path,
+        contentType: MediaType(mimee, type),
+      ),
     });
 
     final response = await _client.dio.post(
