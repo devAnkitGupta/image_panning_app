@@ -40,7 +40,7 @@ class CustomImageCardScreen extends StatelessWidget {
                           fit: StackFit.expand,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(5.r),
                               child: snapshot.originalState,
                             ),
                             UserProfileInfo(

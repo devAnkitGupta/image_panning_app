@@ -90,7 +90,7 @@ class _ArtistCard extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(5.r),
             child: Image.network(
               url,
               width: 335.w,

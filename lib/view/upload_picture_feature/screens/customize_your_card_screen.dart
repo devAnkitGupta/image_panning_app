@@ -124,11 +124,12 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
                   fit: StackFit.expand,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(5.r),
                       child: SizedBox(
                         width: 335.w,
                         height: 600.h,
                         child: Cropper(
+                          aspectRatio: 9/16,
                           cropperKey: _cropperKey,
                           image: memoryImage,
                           zoomScale: 40,

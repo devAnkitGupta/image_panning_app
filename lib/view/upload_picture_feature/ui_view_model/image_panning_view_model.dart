@@ -47,7 +47,7 @@ class ImagePanningViewModel with ChangeNotifier {
       originalState = Image.memory(
         bytes,
         width: 335.w,
-        height: 638.h,
+        height: 700.h,
         fit: BoxFit.cover,
       );
       notifyListeners();
