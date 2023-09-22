@@ -95,8 +95,6 @@ class _ArtistCard extends StatelessWidget {
               aspectRatio: 8 / 16,
               child: Image.network(
                 url,
-                // width: 335.w,
-                // height: 638.h,
                 fit: BoxFit.cover,
               ),
             ),

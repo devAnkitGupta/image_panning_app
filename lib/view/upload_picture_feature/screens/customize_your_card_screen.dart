@@ -136,9 +136,12 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: 60.h,
-                      child: const UserProfileInfo(),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      child: Positioned(
+                        top: 60.h,
+                        child: const UserProfileInfo(),
+                      ),
                     ),
                   ],
                 ),
