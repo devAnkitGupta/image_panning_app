@@ -19,6 +19,7 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
     return CustomScaffold(
       title: 'Change design',
       body: _buildBody(context),
+      hasLeading: false,
     );
   }
 

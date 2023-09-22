@@ -49,7 +49,7 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
         children: [
           Column(
             children: [
-              SizedBox(height: 30.h),
+              SizedBox(height: 35.h),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 height: 56,
