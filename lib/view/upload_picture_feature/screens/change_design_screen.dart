@@ -43,7 +43,7 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
       Navigator.pop(context);
     }
     if (imageFile == null) {
-      Utils.showErrorToast(message: AppStrings.failedToLoad);
+      Utils.showErrorToast(message: AppStrings.operationAborted);
       return;
     }
     final croppedFile = await Utils.cropImage(imageFile.path);

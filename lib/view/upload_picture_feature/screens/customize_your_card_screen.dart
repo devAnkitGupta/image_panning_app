@@ -1,10 +1,8 @@
-import 'dart:io';
-
-import 'package:cropperx/cropperx.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/constants/app_strings.dart';
+import 'package:image_panning_app/constants/image_constants.dart';
 import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
@@ -22,8 +20,6 @@ class CustomizeYourCardScreen extends StatefulWidget {
 }
 
 class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
-  final _cropperKey = GlobalKey(debugLabel: 'cropperKey');
-  late Image memoryImage;
   late ImagePanningViewModel imagePanningViewModel;
 
   @override
@@ -31,21 +27,18 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
     super.didChangeDependencies();
     imagePanningViewModel =
         Provider.of<ImagePanningViewModel>(context, listen: false);
-    final bytes = imagePanningViewModel.originalbytes;
-    memoryImage = Image.memory(bytes!, fit: BoxFit.cover);
+    Future.microtask(() => imagePanningViewModel.setCropper());
   }
 
   Future<void> openPicker(ImageSource source) async {
     final imageFile = await Utils.getImage(source);
     if (imageFile == null) {
-      Utils.showErrorToast(message: AppStrings.failedToLoad);
+      Utils.showErrorToast(message: AppStrings.operationAborted);
       return;
     }
+    imagePanningViewModel.onImageReplaced(imageFile.path);
     if (mounted) {
-      memoryImage = Image.file(File(imageFile.path), fit: BoxFit.cover);
       Navigator.pop(context);
-      imagePanningViewModel.onImageReplaced(imageFile.path);
-      setState(() {});
     }
   }
 
@@ -124,23 +117,18 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5.r),
                       child: AspectRatio(
-                        aspectRatio: 8 / 16,
-                        child: Cropper(
-                          aspectRatio: 8 / 16,
-                          cropperKey: _cropperKey,
-                          image: memoryImage,
-                          zoomScale: 40,
-                          onScaleStart: (_) {
-                            imagePanningViewModel.setPannedTrue();
+                        aspectRatio: ImageConstants.aspectRatio,
+                        child: Consumer<ImagePanningViewModel>(
+                          builder: (context, snapshot, _) {
+                            return snapshot.imageCropperWidget;
                           },
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      child: Positioned(
-                        top: 60.h,
-                        child: const UserProfileInfo(),
+                    Positioned(
+                      top: 60.h,
+                      child: const IgnorePointer(
+                        child: UserProfileInfo(),
                       ),
                     ),
                   ],
@@ -157,9 +145,7 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: ElevatedButton(
-                  onPressed: () {
-                    imagePanningViewModel.onSave(_cropperKey);
-                  },
+                  onPressed: () => imagePanningViewModel.onSave(),
                   child: const Text('Save'),
                 ),
               ),

@@ -24,7 +24,7 @@ class Utils {
       msg: message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 2,
       backgroundColor: AppColor.red,
       textColor: AppColor.white,
       fontSize: 14.0.sp,
@@ -36,7 +36,7 @@ class Utils {
       msg: message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 2,
       backgroundColor: AppColor.red,
       textColor: AppColor.white,
       fontSize: 14.0.sp,
@@ -48,7 +48,7 @@ class Utils {
       msg: message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 2,
       backgroundColor: AppColor.green,
       textColor: AppColor.white,
       fontSize: 14.0.sp,
@@ -56,9 +56,14 @@ class Utils {
   }
 
   static Future<XFile?> getImage(ImageSource source) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: source);
-    return image;
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: source);
+      return image;
+    } catch (e) {
+      showErrorToast(message: AppStrings.operationAborted);
+    }
+    return null;
   }
 
   /// Function [cropImage] will return String as a path
