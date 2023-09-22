@@ -98,10 +98,7 @@ class _ArtistCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.r),
             child: AspectRatio(
               aspectRatio: 8 / 16,
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-              ),
+              child: _buildNetworkImage(),
             ),
           ),
           Positioned(
@@ -158,6 +155,41 @@ class _ArtistCard extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Image _buildNetworkImage() {
+    return Image.network(
+      url,
+      fit: BoxFit.cover,
+      loadingBuilder: (BuildContext context, Widget child,
+          ImageChunkEvent? loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(
+            valueColor: const AlwaysStoppedAnimation(AppColor.red),
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded /
+                    loadingProgress.expectedTotalBytes!
+                : null,
+          ),
+        );
+      },
+      errorBuilder: (context, exception, stackTrace) {
+        return const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error,
+              color: AppColor.red,
+            ),
+            Text(
+              'Failed to load Image',
+              style: TextStyle(color: AppColor.red),
+            )
+          ],
+        );
+      },
     );
   }
 }
