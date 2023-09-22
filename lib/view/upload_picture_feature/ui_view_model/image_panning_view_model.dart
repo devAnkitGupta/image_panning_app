@@ -125,6 +125,9 @@ class ImagePanningViewModel with ChangeNotifier {
   void resetImagePanningViewModel() {
     originalState = null;
     originalImageFile = null;
+    originalbytes = null;
+    replacedBytes = null;
+    isPannedRecently = false;
   }
 
   void onSave() async {

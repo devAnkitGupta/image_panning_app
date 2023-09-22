@@ -4,6 +4,7 @@ import 'package:image_panning_app/model/models/upload_picture_response.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
+import 'package:image_panning_app/view/upload_picture_feature/ui_view_model/image_panning_view_model.dart';
 import 'package:image_panning_app/view/widgets/custom_scaffold.dart';
 import 'package:image_panning_app/view/widgets/user_profile_info.dart';
 import 'package:image_panning_app/view_model/upload_picture_view_model.dart';
@@ -29,6 +30,20 @@ class _ArtistScreenState extends State<ArtistScreen> {
         .getSelectedCardDesignDetails();
   }
 
+  void onEditingTapped(String profileUrl) {
+    Provider.of<ImagePanningViewModel>(context, listen: false)
+        .resetImagePanningViewModel();
+    Navigator.pushNamed(
+      context,
+      RouteConstants.customImageCardScreen,
+      arguments: profileUrl,
+    ).then(
+      (value) => Provider.of<UploadPictureViewModel>(context, listen: false)
+        ..resetProfileImage()
+        ..getSelectedCardDesignDetails(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -46,17 +61,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       _ArtistCard(url: snapshot.profileUrl!),
                       SizedBox(height: 24.h),
                       OutlinedButton(
-                        onPressed: () async {
-                          Navigator.pushNamed(
-                            context,
-                            RouteConstants.customImageCardScreen,
-                            arguments: snapshot.profileUrl,
-                          ).then((value) => Provider.of<UploadPictureViewModel>(
-                              context,
-                              listen: false)
-                            ..resetProfileImage()
-                            ..getSelectedCardDesignDetails());
-                        },
+                        onPressed: () => onEditingTapped(snapshot.profileUrl!),
                         child: Text(
                           'Edit Card',
                           style: AppTextTheme.bodyLarge.copyWith(
