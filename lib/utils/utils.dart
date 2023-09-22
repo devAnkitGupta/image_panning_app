@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,6 +10,7 @@ import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/widgets/custom_icon_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Utils {
   static void showClientError(Object object) {
@@ -118,5 +122,18 @@ class Utils {
         );
       },
     );
+  }
+
+  static Future<File> convertImageToFile(Uint8List imageBytes) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final pathOfImage =
+        await File('${directory.path}/${imageBytes.hashCode}_artist.png')
+            .create();
+    final file = await pathOfImage.writeAsBytes(imageBytes);
+    return file;
+  }
+
+  static Uint8List convertFileToUint8List(File file) {
+    return Uint8List.fromList(file.readAsBytesSync());
   }
 }

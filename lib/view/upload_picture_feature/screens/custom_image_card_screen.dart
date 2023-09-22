@@ -41,7 +41,10 @@ class CustomImageCardScreen extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5.r),
-                              child: snapshot.originalState,
+                              child: AspectRatio(
+                                aspectRatio: 8 / 16,
+                                child: snapshot.originalState,
+                              ),
                             ),
                             UserProfileInfo(
                               enableEditing: true,

@@ -32,8 +32,7 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
     imagePanningViewModel =
         Provider.of<ImagePanningViewModel>(context, listen: false);
     final bytes = imagePanningViewModel.originalbytes;
-    memoryImage =
-        Image.memory(bytes!, width: 335.w, height: 600.h, fit: BoxFit.cover);
+    memoryImage = Image.memory(bytes!, fit: BoxFit.cover);
   }
 
   Future<void> openPicker(ImageSource source) async {
@@ -43,8 +42,7 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
       return;
     }
     if (mounted) {
-      memoryImage = Image.file(File(imageFile.path),
-          width: 335.w, height: 600.h, fit: BoxFit.cover);
+      memoryImage = Image.file(File(imageFile.path), fit: BoxFit.cover);
       Navigator.pop(context);
       imagePanningViewModel.onImageReplaced(imageFile.path);
       setState(() {});
@@ -125,11 +123,10 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5.r),
-                      child: SizedBox(
-                        width: 335.w,
-                        height: 600.h,
+                      child: AspectRatio(
+                        aspectRatio: 8 / 16,
                         child: Cropper(
-                          aspectRatio: 9/16,
+                          aspectRatio: 8 / 16,
                           cropperKey: _cropperKey,
                           image: memoryImage,
                           zoomScale: 40,

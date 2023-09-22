@@ -32,18 +32,19 @@ class App extends StatelessWidget {
 
   FutureBuilder<bool> buildFlutterSplash() {
     return FutureBuilder<bool>(
-        future: Future.delayed(const Duration(seconds: 1), () => true),
-        builder: (context, snapshot) {
-          ScreenUtil.init(context, designSize: const Size(375, 768));
-          return snapshot.data == true
-              ? Stack(
-                  children: [
-                    buildApp(),
-                    const LoadingScreen(),
-                  ],
-                )
-              : const FlutterLogo();
-        });
+      future: Future.delayed(const Duration(milliseconds: 1800), () => true),
+      builder: (context, snapshot) {
+        ScreenUtil.init(context, designSize: const Size(375, 768));
+        return snapshot.data == true
+            ? Stack(
+                children: [
+                  buildApp(),
+                  const LoadingScreen(),
+                ],
+              )
+            : const FlutterLogo();
+      },
+    );
   }
 
   Widget buildApp() {

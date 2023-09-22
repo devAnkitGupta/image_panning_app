@@ -91,11 +91,14 @@ class _ArtistCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5.r),
-            child: Image.network(
-              url,
-              width: 335.w,
-              height: 638.h,
-              fit: BoxFit.cover,
+            child: AspectRatio(
+              aspectRatio: 8 / 16,
+              child: Image.network(
+                url,
+                // width: 335.w,
+                // height: 638.h,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Positioned(
