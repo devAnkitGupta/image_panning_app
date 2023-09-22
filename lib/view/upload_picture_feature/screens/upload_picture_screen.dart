@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/app/theme/app_text_theme.dart';
@@ -16,6 +17,29 @@ class UploadPictureScreen extends StatelessWidget {
   });
 
   final String pickedFile;
+
+  void uploadImage(BuildContext context) async {
+    final file = File(pickedFile);
+    int sizeInBytes = file.lengthSync();
+    double sizeInMb = sizeInBytes / (1024 * 1024);
+    if (sizeInMb > 10) {
+      Utils.showErrorToast(message: 'Images upto 10Mb size can be uploaded');
+      return;
+    }
+    final uploadPictureData = await Provider.of<UploadPictureViewModel>(
+      context,
+      listen: false,
+    ).uploadPicture(file);
+    if (uploadPictureData != null) {
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(
+          context,
+          RouteConstants.artistScreen,
+          arguments: uploadPictureData,
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,23 +68,7 @@ class UploadPictureScreen extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () async {
-              final file = File(pickedFile);
-              final uploadPictureData =
-                  await Provider.of<UploadPictureViewModel>(
-                context,
-                listen: false,
-              ).uploadPicture(file);
-              if (uploadPictureData != null) {
-                if (context.mounted) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RouteConstants.artistScreen,
-                    arguments: uploadPictureData,
-                  );
-                }
-              }
-            },
+            onPressed: () => uploadImage(context),
             child: const Text('Save & Continue'),
           ),
           const Spacer()
