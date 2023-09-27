@@ -10,7 +10,9 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CircularProgressIndicator.adaptive(
       backgroundColor: AppColor.borderGrey,
-      valueColor: AlwaysStoppedAnimation(AppColor.red),
+      valueColor: AlwaysStoppedAnimation(
+        AppColor.red,
+      ),
     );
   }
 }

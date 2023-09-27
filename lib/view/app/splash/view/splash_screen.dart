@@ -9,7 +9,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   @override
   void initState() {
     super.initState();
@@ -20,7 +19,9 @@ class _SplashState extends State<Splash> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Navigator.of(context).pushReplacementNamed(RouteConstants.changeDesign);
+        Navigator.of(context).pushReplacementNamed(
+          RouteConstants.changeDesign,
+        );
       },
     );
   }

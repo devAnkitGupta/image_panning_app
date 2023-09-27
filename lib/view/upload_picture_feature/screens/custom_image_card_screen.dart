@@ -63,15 +63,19 @@ class CustomImageCardScreen extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () async {
                           if (snapshot.originalImageFile != null) {
-                            await Provider.of<UploadPictureViewModel>(context,
-                                    listen: false)
-                                .uploadPicture(snapshot.originalImageFile!);
+                            await Provider.of<UploadPictureViewModel>(
+                              context,
+                              listen: false,
+                            ).uploadPicture(
+                              snapshot.originalImageFile!,
+                            );
                             if (context.mounted) {
                               Navigator.pop(context);
                             }
                           } else {
                             Utils.showErrorToast(
-                                message: "No change in Image Found");
+                              message: "No change in Image Found",
+                            );
                           }
                         },
                         child: const Text('Save'),

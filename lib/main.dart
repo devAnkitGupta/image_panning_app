@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_panning_app/di/di.dart';
 import 'package:image_panning_app/view/app/app.dart';
 
-
-
 void main() async {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
@@ -14,6 +12,8 @@ void main() async {
   };
 
   Di.setUp();
-  
-  runApp(const App());
+
+  runApp(
+    const App(),
+  );
 }

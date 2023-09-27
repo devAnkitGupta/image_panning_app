@@ -145,7 +145,12 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: ElevatedButton(
-                  onPressed: () => imagePanningViewModel.onSave(),
+                  onPressed: () async {
+                    final isSaved = await imagePanningViewModel.onSave();
+                    if (isSaved && mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
                   child: const Text('Save'),
                 ),
               ),

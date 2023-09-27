@@ -58,9 +58,11 @@ class UploadPictureScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColor.borderGrey,
                   image: DecorationImage(
-                     fit: BoxFit.fill,
+                    fit: BoxFit.fill,
                     image: FileImage(
-                      File(pickedFile),
+                      File(
+                        pickedFile,
+                      ),
                     ),
                   ),
                 ),

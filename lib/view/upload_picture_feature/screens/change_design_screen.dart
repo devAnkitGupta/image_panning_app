@@ -30,7 +30,10 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
         const SizedBox(height: 30),
         StarButton(
           onTap: () {
-            Utils.showPickerModel(context, openPicker);
+            Utils.showPickerModel(
+              context,
+              openPicker,
+            );
           },
           title: 'Upload picture',
         ),
@@ -39,17 +42,25 @@ class _ChangeDesignScreenState extends State<ChangeDesignScreen> {
   }
 
   Future<void> openPicker(ImageSource source) async {
-    final imageFile = await Utils.getImage(source);
+    final imageFile = await Utils.getImage(
+      source,
+    );
     if (mounted) {
       Navigator.pop(context);
     }
     if (imageFile == null) {
-      Utils.showErrorToast(message: AppStrings.operationAborted);
+      Utils.showErrorToast(
+        message: AppStrings.operationAborted,
+      );
       return;
     }
-    final croppedFile = await Utils.cropImage(imageFile.path);
+    final croppedFile = await Utils.cropImage(
+      imageFile.path,
+    );
     if (croppedFile == null) {
-      Utils.showErrorToast(message: AppStrings.failedToCropImage);
+      Utils.showErrorToast(
+        message: AppStrings.failedToCropImage,
+      );
       return;
     }
     if (context.mounted) {

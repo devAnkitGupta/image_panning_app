@@ -95,9 +95,11 @@ class UserCircularAvatar extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage(enableEditing
-                      ? '${AppStrings.assestsLocation}userProfile.png'
-                      : '${AppStrings.assestsLocation}user.jpeg'),
+                  image: AssetImage(
+                    enableEditing
+                        ? '${AppStrings.assestsLocation}userProfile.png'
+                        : '${AppStrings.assestsLocation}user.jpeg',
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),

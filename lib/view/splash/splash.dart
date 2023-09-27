@@ -20,7 +20,9 @@ class _SplashState extends State<Splash> {
     Future.delayed(
       const Duration(seconds: 2),
       () {
-        Navigator.of(context).pushReplacementNamed(RouteConstants.changeDesign);
+        Navigator.of(context).pushReplacementNamed(
+          RouteConstants.changeDesign,
+        );
       },
     );
   }
@@ -34,5 +36,3 @@ class _SplashState extends State<Splash> {
     );
   }
 }
-
-

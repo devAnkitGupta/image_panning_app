@@ -11,8 +11,8 @@ class ErrorResponse {
   late final int errorCode;
   late final String message;
   late final List<dynamic> result;
-  
-  ErrorResponse.fromJson(Map<String, dynamic> json){
+
+  ErrorResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     isAuth = json['isAuth'];
     errorCode = json['errorCode'];

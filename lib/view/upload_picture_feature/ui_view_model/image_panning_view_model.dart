@@ -71,7 +71,9 @@ class ImagePanningViewModel with ChangeNotifier {
         },
       );
     } catch (e) {
-      Utils.showErrorToast(message: "Editing Failed");
+      Utils.showErrorToast(
+        message: "Editing Failed",
+      );
     } finally {
       _loadingNotifier.stopLoading();
     }
@@ -92,18 +94,30 @@ class ImagePanningViewModel with ChangeNotifier {
         originalbytes = replacedBytes;
         replacedBytes = null;
       }
-      originalImageFile = await Utils.convertImageToFile(croppedBytes);
+      originalImageFile = await Utils.convertImageToFile(
+        croppedBytes,
+      );
     } catch (e) {
-      Utils.showErrorToast(message: AppStrings.failedToCropImage);
+      Utils.showErrorToast(
+        message: AppStrings.failedToCropImage,
+      );
     }
   }
 
   void onImageReplaced(String imagePath) {
-    replacedBytes = Utils.convertFileToUint8List(File(imagePath));
+    replacedBytes = Utils.convertFileToUint8List(
+      File(
+        imagePath,
+      ),
+    );
     imageCropperWidget = Cropper(
       aspectRatio: ImageConstants.aspectRatio,
       cropperKey: _cropperKey,
-      image: Image.file(File(imagePath)),
+      image: Image.file(
+        File(
+          imagePath,
+        ),
+      ),
       zoomScale: 40,
       onScaleStart: (_) {
         setPannedTrue();
@@ -125,21 +139,29 @@ class ImagePanningViewModel with ChangeNotifier {
     isPannedRecently = false;
   }
 
-  void onSave() async {
+  Future<bool> onSave() async {
     try {
       if (isPannedRecently) {
         final imageBytes = await Cropper.crop(
           cropperKey: _cropperKey, // Reference it through the key
         );
         if (imageBytes != null) {
-          await setNewCroppedImage(imageBytes, replacedBytes);
+          await setNewCroppedImage(
+            imageBytes,
+            replacedBytes,
+          );
           isPannedRecently = false;
+          return await Future.value(true);
         } else {
-          Utils.showErrorToast(message: AppStrings.failedToCropImage);
+          Utils.showErrorToast(
+            message: AppStrings.failedToCropImage,
+          );
         }
       }
+      return await Future.value(false);
     } catch (e) {
       Utils.showErrorToast(message: 'Failed To Save');
+      return await Future.value(false);
     }
   }
 }

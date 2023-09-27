@@ -9,12 +9,14 @@ class UploadPictureResponse {
   late final bool isAuth;
   late final String message;
   late final List<UploadPictureResponseData> result;
-  
-  UploadPictureResponse.fromJson(Map<String, dynamic> json){
+
+  UploadPictureResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     isAuth = json['isAuth'];
     message = json['message'];
-    result = List.from(json['result']).map((e)=>UploadPictureResponseData.fromJson(e)).toList();
+    result = List.from(json['result'])
+        .map((e) => UploadPictureResponseData.fromJson(e))
+        .toList();
   }
 }
 
@@ -25,8 +27,8 @@ class UploadPictureResponseData {
   });
   late final String uid;
   late final String profileBannerImageURL;
-  
-  UploadPictureResponseData.fromJson(Map<String, dynamic> json){
+
+  UploadPictureResponseData.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
     profileBannerImageURL = json['profileBannerImageURL'];
   }

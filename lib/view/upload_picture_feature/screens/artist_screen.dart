@@ -27,19 +27,26 @@ class _ArtistScreenState extends State<ArtistScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<UploadPictureViewModel>(context, listen: false)
-        .getSelectedCardDesignDetails();
+    Provider.of<UploadPictureViewModel>(
+      context,
+      listen: false,
+    ).getSelectedCardDesignDetails();
   }
 
   void onEditingTapped(String profileUrl) {
-    Provider.of<ImagePanningViewModel>(context, listen: false)
-        .resetImagePanningViewModel();
+    Provider.of<ImagePanningViewModel>(
+      context,
+      listen: false,
+    ).resetImagePanningViewModel();
     Navigator.pushNamed(
       context,
       RouteConstants.customImageCardScreen,
       arguments: profileUrl,
     ).then(
-      (value) => Provider.of<UploadPictureViewModel>(context, listen: false)
+      (value) => Provider.of<UploadPictureViewModel>(
+        context,
+        listen: false,
+      )
         ..resetProfileImage()
         ..getSelectedCardDesignDetails(),
     );
@@ -62,7 +69,9 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       _ArtistCard(url: snapshot.profileUrl!),
                       SizedBox(height: 24.h),
                       OutlinedButton(
-                        onPressed: () => onEditingTapped(snapshot.profileUrl!),
+                        onPressed: () => onEditingTapped(
+                          snapshot.profileUrl!,
+                        ),
                         child: Text(
                           'Edit Card',
                           style: AppTextTheme.bodyLarge.copyWith(
@@ -215,10 +224,16 @@ class _ProfileInfoIcon extends StatelessWidget {
     return Container(
       height: size?.h ?? 30.h,
       width: size?.h ?? 30.h,
-      margin: EdgeInsets.symmetric(horizontal: 4.w),
+      margin: EdgeInsets.symmetric(
+        horizontal: 4.w,
+      ),
       decoration: BoxDecoration(
         color: AppColor.black54,
-        borderRadius: BorderRadius.all(Radius.circular(6.r)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            6.r,
+          ),
+        ),
       ),
       child: Icon(
         iconData,

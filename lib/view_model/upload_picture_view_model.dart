@@ -27,7 +27,9 @@ class UploadPictureViewModel with ChangeNotifier {
     UploadPictureResponseData? uploadResponseData;
     try {
       _loadingNotifier.startLoading();
-      uploadResponseData = await _uploadPictureRepository.uploadPicture(file);
+      uploadResponseData = await _uploadPictureRepository.uploadPicture(
+        file,
+      );
       return uploadResponseData;
     } catch (e) {
       Utils.showClientError(e);

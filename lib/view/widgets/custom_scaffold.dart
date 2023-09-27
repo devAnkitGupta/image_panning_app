@@ -32,7 +32,9 @@ class CustomScaffold extends StatelessWidget {
               )
             : null,
       ),
-      body: Center(child: body),
+      body: Center(
+        child: body,
+      ),
     );
   }
 }

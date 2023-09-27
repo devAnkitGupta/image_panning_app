@@ -1,3 +1,3 @@
-class ImageConstants{
-  static const aspectRatio = 9/16;
+class ImageConstants {
+  static const aspectRatio = 9 / 16;
 }
