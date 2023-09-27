@@ -148,7 +148,9 @@ class _ArtistCard extends StatelessWidget {
                     iconData: Icons.account_circle,
                   ),
                   Container(
-                    padding: EdgeInsets.all(2.h),
+                    padding: EdgeInsets.all(
+                      2.h,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColor.black54,
                       borderRadius: BorderRadius.all(

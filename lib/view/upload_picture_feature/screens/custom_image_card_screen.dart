@@ -60,32 +60,39 @@ class CustomImageCardScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 24.h),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (snapshot.originalImageFile != null) {
-                            await Provider.of<UploadPictureViewModel>(
-                              context,
-                              listen: false,
-                            ).uploadPicture(
-                              snapshot.originalImageFile!,
-                            );
-                            if (context.mounted) {
-                              Navigator.pop(context);
-                            }
-                          } else {
-                            Utils.showErrorToast(
-                              message: "No change in Image Found",
-                            );
-                          }
-                        },
-                        child: const Text('Save'),
-                      ),
+                      _buildSave(snapshot, context),
                       const SizedBox(height: 24),
                     ],
                   ),
                 );
         },
       ),
+    );
+  }
+
+  ElevatedButton _buildSave(
+    ImagePanningViewModel snapshot,
+    BuildContext context,
+  ) {
+    return ElevatedButton(
+      onPressed: () async {
+        if (snapshot.originalImageFile != null) {
+          await Provider.of<UploadPictureViewModel>(
+            context,
+            listen: false,
+          ).uploadPicture(
+            snapshot.originalImageFile!,
+          );
+          if (context.mounted) {
+            Navigator.pop(context);
+          }
+        } else {
+          Utils.showErrorToast(
+            message: "No change in Image Found",
+          );
+        }
+      },
+      child: const Text('Save'),
     );
   }
 }
