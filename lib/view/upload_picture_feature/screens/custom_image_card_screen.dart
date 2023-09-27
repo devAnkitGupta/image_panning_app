@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_panning_app/constants/image_constants.dart';
 import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
@@ -32,8 +33,8 @@ class CustomImageCardScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 24.h),
-                      SizedBox(
-                        width: 335.w,
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
                         height: 700.h,
                         child: Stack(
                           alignment: Alignment.center,
@@ -42,7 +43,7 @@ class CustomImageCardScreen extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(5.r),
                               child: AspectRatio(
-                                aspectRatio: 8 / 16,
+                                aspectRatio: ImageConstants.aspectRatio,
                                 child: snapshot.originalState,
                               ),
                             ),

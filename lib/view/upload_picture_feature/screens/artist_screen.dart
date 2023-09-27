@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_panning_app/constants/image_constants.dart';
 import 'package:image_panning_app/model/models/upload_picture_response.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
@@ -88,72 +89,73 @@ class _ArtistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 335.w,
-      height: 638.h,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.r),
-            child: AspectRatio(
-              aspectRatio: 8 / 16,
-              child: _buildNetworkImage(),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      child: SizedBox(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5.r),
+              child: AspectRatio(
+                aspectRatio: ImageConstants.aspectRatio,
+                child: _buildNetworkImage(),
+              ),
             ),
-          ),
-          Positioned(
-            top: 40.h,
-            child: const UserProfileInfo(),
-          ),
-          Positioned(
-            bottom: 50.h,
-            child: const Row(
-              children: [
-                _ProfileInfoIcon(
-                  iconData: Icons.attach_money_rounded,
-                ),
-                _ProfileInfoIcon(
-                  iconData: Icons.mail,
-                ),
-                _ProfileInfoIcon(
-                  iconData: Icons.phone,
-                ),
-                _ProfileInfoIcon(
-                  iconData: Icons.location_on,
-                ),
-                _ProfileInfoIcon(
-                  iconData: Icons.crisis_alert,
-                ),
-              ],
+            Positioned(
+              top: 40.h,
+              child: const UserProfileInfo(),
             ),
-          ),
-          Positioned(
-            right: 10.w,
-            bottom: 10.h,
-            child: Row(
-              children: [
-                const _ProfileInfoIcon(
-                  size: 30,
-                  iconSize: 22,
-                  iconData: Icons.account_circle,
-                ),
-                Container(
-                  padding: EdgeInsets.all(2.h),
-                  decoration: BoxDecoration(
-                    color: AppColor.black54,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4.r),
+            Positioned(
+              bottom: 50.h,
+              child: const Row(
+                children: [
+                  _ProfileInfoIcon(
+                    iconData: Icons.attach_money_rounded,
+                  ),
+                  _ProfileInfoIcon(
+                    iconData: Icons.mail,
+                  ),
+                  _ProfileInfoIcon(
+                    iconData: Icons.phone,
+                  ),
+                  _ProfileInfoIcon(
+                    iconData: Icons.location_on,
+                  ),
+                  _ProfileInfoIcon(
+                    iconData: Icons.crisis_alert,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 10.w,
+              bottom: 10.h,
+              child: Row(
+                children: [
+                  const _ProfileInfoIcon(
+                    size: 30,
+                    iconSize: 22,
+                    iconData: Icons.account_circle,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(2.h),
+                    decoration: BoxDecoration(
+                      color: AppColor.black54,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4.r),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'Profile',
-                    style: AppTextTheme.chipLabel,
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+                    child: Text(
+                      'Profile',
+                      style: AppTextTheme.chipLabel,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -161,9 +163,12 @@ class _ArtistCard extends StatelessWidget {
   Image _buildNetworkImage() {
     return Image.network(
       url,
-      fit: BoxFit.cover,
-      loadingBuilder: (BuildContext context, Widget child,
-          ImageChunkEvent? loadingProgress) {
+      fit: BoxFit.fill,
+      loadingBuilder: (
+        BuildContext context,
+        Widget child,
+        ImageChunkEvent? loadingProgress,
+      ) {
         if (loadingProgress == null) return child;
         return Center(
           child: CircularProgressIndicator(

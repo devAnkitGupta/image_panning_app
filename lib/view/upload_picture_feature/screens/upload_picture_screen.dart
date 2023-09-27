@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_panning_app/constants/image_constants.dart';
 import 'package:image_panning_app/utils/utils.dart';
 import 'package:image_panning_app/view/app/route/route_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
@@ -47,18 +48,22 @@ class UploadPictureScreen extends StatelessWidget {
       title: 'Upload Picture',
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 12.h),
-            width: 327.w,
+          const SizedBox(height: 20),
+          SizedBox(
             height: 504.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.r),
-              color: AppColor.borderGrey,
-              image: DecorationImage(
-                image: FileImage(
-                  File(pickedFile),
+            child: AspectRatio(
+              aspectRatio: ImageConstants.aspectRatio,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.r),
+                  color: AppColor.borderGrey,
+                  image: DecorationImage(
+                     fit: BoxFit.fill,
+                    image: FileImage(
+                      File(pickedFile),
+                    ),
+                  ),
                 ),
-                fit: BoxFit.cover,
               ),
             ),
           ),

@@ -4,7 +4,6 @@ import 'package:cropperx/cropperx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_panning_app/constants/app_strings.dart';
 import 'package:image_panning_app/constants/image_constants.dart';
 import 'package:image_panning_app/utils/utils.dart';
@@ -60,9 +59,7 @@ class ImagePanningViewModel with ChangeNotifier {
       originalbytes = imageData.buffer.asUint8List();
       originalState = Image.memory(
         originalbytes!,
-        width: 335.w,
-        height: 700.h,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       );
       imageCropperWidget = Cropper(
         aspectRatio: ImageConstants.aspectRatio,
@@ -88,9 +85,7 @@ class ImagePanningViewModel with ChangeNotifier {
     try {
       originalState = Image.memory(
         croppedBytes,
-        width: 335.w,
-        height: 700.h,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       );
       notifyListeners();
       if (replacedBytes != null) {

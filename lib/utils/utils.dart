@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_panning_app/constants/app_strings.dart';
+import 'package:image_panning_app/constants/image_constants.dart';
 import 'package:image_panning_app/view/app/theme/app_color.dart';
 import 'package:image_panning_app/view/widgets/custom_icon_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,16 +74,21 @@ class Utils {
       sourcePath: imagePath,
       compressFormat: ImageCompressFormat.png,
       compressQuality: 100,
+      aspectRatio: const CropAspectRatio(ratioX: 9, ratioY: 16),
+      aspectRatioPresets: const [CropAspectRatioPreset.ratio16x9],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: AppStrings.editPhoto,
           toolbarColor: AppColor.white,
           toolbarWidgetColor: AppColor.black,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false,
+          initAspectRatio: CropAspectRatioPreset.ratio16x9,
+          lockAspectRatio: true,
+          hideBottomControls: true,
         ),
         IOSUiSettings(
           title: AppStrings.editPhoto,
+          aspectRatioLockEnabled: true,
+          minimumAspectRatio: ImageConstants.aspectRatio,
         ),
       ],
     );
