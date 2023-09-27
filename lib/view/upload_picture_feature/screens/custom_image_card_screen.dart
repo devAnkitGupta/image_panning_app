@@ -29,43 +29,57 @@ class CustomImageCardScreen extends StatelessWidget {
         builder: (context, snapshot, _) {
           return (snapshot.originalState == null)
               ? const SizedBox()
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 24.h),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w),
-                        height: 700.h,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          fit: StackFit.expand,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(5.r),
-                              child: AspectRatio(
-                                aspectRatio: ImageConstants.aspectRatio,
-                                child: snapshot.originalState,
-                              ),
-                            ),
-                            UserProfileInfo(
-                              enableEditing: true,
-                              onEditingTapped: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  RouteConstants.customizeYourCardScreen,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 24.h),
-                      _buildSave(snapshot, context),
-                      const SizedBox(height: 24),
-                    ],
-                  ),
+              : _buildCustomCardImageConatainer(
+                  snapshot,
+                  context,
                 );
         },
+      ),
+    );
+  }
+
+  SingleChildScrollView _buildCustomCardImageConatainer(
+    ImagePanningViewModel snapshot,
+    BuildContext context,
+  ) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: 24.h),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+            ),
+            height: 700.h,
+            child: Stack(
+              alignment: Alignment.center,
+              fit: StackFit.expand,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                    5.r,
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: ImageConstants.aspectRatio,
+                    child: snapshot.originalState,
+                  ),
+                ),
+                UserProfileInfo(
+                  enableEditing: true,
+                  onEditingTapped: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteConstants.customizeYourCardScreen,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 24.h),
+          _buildSave(snapshot, context),
+          const SizedBox(height: 24),
+        ],
       ),
     );
   }

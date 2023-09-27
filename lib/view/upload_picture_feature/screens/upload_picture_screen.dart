@@ -24,7 +24,9 @@ class UploadPictureScreen extends StatelessWidget {
     int sizeInBytes = file.lengthSync();
     double sizeInMb = sizeInBytes / (1024 * 1024);
     if (sizeInMb > 10) {
-      Utils.showErrorToast(message: 'Images upto 10Mb size can be uploaded');
+      Utils.showErrorToast(
+        message: 'Images upto 10Mb size can be uploaded',
+      );
       return;
     }
     final uploadPictureData = await Provider.of<UploadPictureViewModel>(

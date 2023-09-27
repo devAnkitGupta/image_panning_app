@@ -183,7 +183,9 @@ class _ArtistCard extends StatelessWidget {
         if (loadingProgress == null) return child;
         return Center(
           child: CircularProgressIndicator(
-            valueColor: const AlwaysStoppedAnimation(AppColor.red),
+            valueColor: const AlwaysStoppedAnimation(
+              AppColor.red,
+            ),
             value: loadingProgress.expectedTotalBytes != null
                 ? loadingProgress.cumulativeBytesLoaded /
                     loadingProgress.expectedTotalBytes!
