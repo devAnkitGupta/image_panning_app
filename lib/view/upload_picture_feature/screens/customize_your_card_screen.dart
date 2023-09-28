@@ -27,7 +27,9 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
     super.didChangeDependencies();
     imagePanningViewModel =
         Provider.of<ImagePanningViewModel>(context, listen: false);
-    Future.microtask(() => imagePanningViewModel.setCropper());
+    if (mounted) {
+      Future.microtask(() => imagePanningViewModel.setCropper());
+    }
   }
 
   Future<void> openPicker(ImageSource source) async {
@@ -47,14 +49,24 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
     return Material(
       child: Stack(
         children: [
-          Column(
-            children: [
-              SizedBox(height: 35.h),
-              _buildTopBar(context),
-              _buildReplaceImageDottedContainer(context),
-              const SizedBox(height: 10),
-              _buildPanAndZoomArea(),
-            ],
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 35.h,
+                ),
+                _buildTopBar(
+                  context,
+                ),
+                _buildReplaceImageDottedContainer(
+                  context,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                _buildPanAndZoomArea(),
+              ],
+            ),
           ),
           _buildSaveButton(context),
         ],
@@ -66,11 +78,15 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+        ),
         width: MediaQuery.sizeOf(context).width,
         color: AppColor.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 24),
+          padding: const EdgeInsets.symmetric(
+            vertical: 24,
+          ),
           child: ElevatedButton(
             onPressed: () async {
               final isSaved = await imagePanningViewModel.onSave();
@@ -85,32 +101,38 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
     );
   }
 
-  SizedBox _buildPanAndZoomArea() {
+  Widget _buildPanAndZoomArea() {
     return SizedBox(
-      width: 335.w,
       height: 600.h,
-      child: Stack(
-        alignment: Alignment.center,
-        fit: StackFit.expand,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.r),
-            child: AspectRatio(
-              aspectRatio: ImageConstants.aspectRatio,
-              child: Consumer<ImagePanningViewModel>(
+      child: AspectRatio(
+        aspectRatio: ImageConstants.aspectRatio,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            5.r,
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              Consumer<ImagePanningViewModel>(
                 builder: (context, snapshot, _) {
                   return snapshot.imageCropperWidget;
                 },
               ),
-            ),
+              IgnorePointer(
+                child: Container(
+                  color: AppColor.black54,
+                ),
+              ),
+              Positioned(
+                top: 60.h,
+                child: const IgnorePointer(
+                  child: UserProfileInfo(),
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            top: 60.h,
-            child: const IgnorePointer(
-              child: UserProfileInfo(),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -118,7 +140,7 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
   Padding _buildReplaceImageDottedContainer(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: 16.w,
+        bottom: 12.w,
         left: 16.w,
         right: 16.w,
       ),
@@ -135,10 +157,14 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
           radius: Radius.circular(8.r),
           child: Container(
             height: 51.h,
-            padding: EdgeInsets.symmetric(vertical: 8.h),
+            padding: EdgeInsets.symmetric(
+              vertical: 8.h,
+            ),
             decoration: BoxDecoration(
               color: AppColor.cardBlue,
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(
+                8.r,
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -176,7 +202,9 @@ class _CustomizeYourCardScreenState extends State<CustomizeYourCardScreen> {
               '${AppStrings.assestsLocation}cross.png',
             ),
             onTap: () {
-              Navigator.pop(context);
+              if (mounted) {
+                Navigator.pop(context);
+              }
             },
           ),
         ],

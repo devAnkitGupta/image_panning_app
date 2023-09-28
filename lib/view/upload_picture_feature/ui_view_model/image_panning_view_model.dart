@@ -64,7 +64,10 @@ class ImagePanningViewModel with ChangeNotifier {
       imageCropperWidget = Cropper(
         aspectRatio: ImageConstants.aspectRatio,
         cropperKey: _cropperKey,
-        image: Image.memory(originalbytes!),
+        image: Image.memory(
+          originalbytes!,
+          fit: BoxFit.fill,
+        ),
         zoomScale: 40,
         onScaleStart: (_) {
           setPannedTrue();

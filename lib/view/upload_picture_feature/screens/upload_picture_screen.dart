@@ -71,14 +71,21 @@ class UploadPictureScreen extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Text(
             'Picture ready to be saved',
             style: AppTextTheme.titleMedium,
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () => uploadImage(context),
-            child: const Text('Save & Continue'),
+            onPressed: () => uploadImage(
+              context,
+            ),
+            child: const Text(
+              'Save & Continue',
+            ),
           ),
           const Spacer()
         ],
